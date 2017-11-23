@@ -14,8 +14,8 @@ import org.apache.curator.utils.CloseableUtils;
 
 public class DistributedIdQueueExample {
     private static final String PATH = "/example/didqueue";
-//    private static final String localdomain = "127.0.0.1:2181";
-    private static final String localdomain = "172.16.2.145:2181";
+    private static final String localdomain = "127.0.0.1:2181";
+//    private static final String localdomain = "172.16.2.145:2181";
 
     public static void main(String[] args) throws Exception {
         CuratorFramework client = null;
