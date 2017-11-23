@@ -20,10 +20,11 @@ import java.util.stream.Collectors;
 public class DateTest1 {
     public static void main(String[] args) throws ParseException {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Long result = getCurrentOneWeekTime(df.parse("2017-10-5 12:00:01"));
+        String input = "2017-10-5 12:00:01";
+//        Long result = getCurrentOneWeekTime(df.parse(input));
 //        System.out.println(result);
-//
-        get(new Date(result));
+        Date date1 = DateUtil.getYMDHMSTime(input);
+        get(date1);
     }
 
     public static Long getCurrentOneWeekTime(Date date) {
@@ -37,30 +38,39 @@ public class DateTest1 {
         return cal.getTime().getTime();
     }
 
-    public static void get(Date createTime){
+    public static void get(Date createTime) {
+//        List<CallRecordDetail> detailList = null;
         List<CallRecordDetail> detailList = Lists.newArrayList();
-        final  CallRecordDetail detail1 = new CallRecordDetail();
+        CallRecordDetail detail1 = new CallRecordDetail();
         detail1.setDuration(101);
         detail1.setToMobile("13300009999");
         detail1.setStartTime(DateUtil.getYMDHMSTime("2017-10-1 12:00:01"));
         detailList.add(detail1);
-        detail1.setDuration(102);
-        detail1.setToMobile("13300009991");
-        detail1.setStartTime(DateUtil.getYMDHMSTime("2017-10-5 12:00:01"));
-        detailList.add(detail1);
-        detail1.setDuration(103);
-        detail1.setToMobile("13300009992");
-        detail1.setStartTime(DateUtil.getYMDHMSTime("2017-9-25 12:00:01"));
-        detailList.add(detail1);
-        List<CallRecordDetail> tempList = detailList.stream().filter(item -> (null != item.getStartTime() && item.getStartTime().getTime() > DateUtils.getCurrentOneWeekTime(createTime))).collect(Collectors.toList());
+        CallRecordDetail detail2 = new CallRecordDetail();
+        detail2.setDuration(102);
+        detail2.setToMobile("13300009991");
+        detail2.setStartTime(DateUtil.getYMDHMSTime("2017-10-5 12:00:01"));
+        detailList.add(detail2);
+        CallRecordDetail detail3 = new CallRecordDetail();
+        detail3.setDuration(103);
+        detail3.setToMobile("13300009992");
+        detail3.setStartTime(DateUtil.getYMDHMSTime("2017-9-25 12:00:01"));
+        detailList.add(detail3);
+        detailList.add(null);
+        List<CallRecordDetail> tempList = detailList.stream().filter(item -> ( null != item && null != item.getStartTime() && (item.getStartTime().getTime() > DateUtils.getCurrentOneWeekTime(createTime)))).collect(Collectors.toList());
+//        List<CallRecordDetail> tempList = Lists.newArrayList();
+//        detailList.stream().forEach(item -> {
+//            if (null != item.getStartTime() && (item.getStartTime().getTime() < DateUtils.getCurrentOneWeekTime(createTime)))
+//                tempList.add(item);
+//        });
 
-        System.out.println("tempList= "+ JsonUtil.toJson(tempList));
+        System.out.println("tempList= " + JsonUtil.toJson(tempList));
     }
 
 
-
 }
-class CallRecordDetail{
+
+class CallRecordDetail {
     private String toMobile;
     private Integer duration;
     private Date startTime;
