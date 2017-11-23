@@ -35,10 +35,11 @@ public class BasisTest {
         frequence.put("abin5", 5);
         frequence.put("abin9", 9);
         Map<String, Integer> result = sortByValue(frequence);
-        for(Iterator<Map.Entry<String, Integer>> iterator = result.entrySet().iterator(); iterator.hasNext();){
-            Map.Entry<String, Integer> entry = iterator.next();
-            System.out.println("key="+entry.getKey() + ", value="+entry.getValue());
-        }
+        result.forEach((key, value) -> System.out.println("key="+key + ", value="+value));
+//        for(Iterator<Map.Entry<String, Integer>> iterator = result.entrySet().iterator(); iterator.hasNext();){
+//            Map.Entry<String, Integer> entry = iterator.next();
+//            System.out.println("key="+entry.getKey() + ", value="+entry.getValue());
+//        }
 
         Map<String, Integer> frequence1 = Maps.newHashMap();
         frequence1.put("abin10", 10);
