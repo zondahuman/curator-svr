@@ -941,7 +941,39 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
         return false;
     }
 
+    public static Long getformweWhichWeekTime(Date date, int interval) {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        cal.setTime(date); // 获取时间
+        System.out.println(df.format(cal.getTime()));
+        cal.add(Calendar.WEEK_OF_YEAR, -interval);
+        System.out.println(df.format(cal.getTime()));
+        return cal.getTime().getTime();
+    }
+
+    public static Long getformweWhichMonth(Date date, int interval) {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        cal.setTime(date); // 获取时间
+        System.out.println(df.format(cal.getTime()));
+        cal.add(Calendar.MONTH, -interval);
+        System.out.println(df.format(cal.getTime()));
+        return cal.getTime().getTime();
+    }
+
     public static Long getCurrentOneWeekTime(Date date) {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        cal.setTime(date); // 获取时间
+        System.out.println(df.format(cal.getTime()));
+        cal.add(Calendar.WEEK_OF_YEAR, -1);
+        System.out.println(df.format(cal.getTime()));
+        return cal.getTime().getTime();
+    }
+
+
+
+    public static Long getCurrentTwoWeekTime(Date date) {
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         cal.setTime(date); // 获取时间

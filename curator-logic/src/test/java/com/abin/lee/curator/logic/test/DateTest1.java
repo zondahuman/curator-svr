@@ -21,11 +21,44 @@ public class DateTest1 {
     public static void main(String[] args) throws ParseException {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String input = "2017-10-5 12:00:01";
-//        Long result = getCurrentOneWeekTime(df.parse(input));
-//        System.out.println(result);
-        Date date1 = DateUtil.getYMDHMSTime(input);
-        get(date1);
+//        Long formerOneWeek = getCurrentOneWeekTime(df.parse(input));
+//        System.out.println("formerOneWeek="+formerOneWeek);
+//        Long formerTwoWeek = getCurrentTwoWeekTime(df.parse(input));
+//        System.out.println("formerTwoWeek="+formerTwoWeek);
+
+        Long formerOneWeek = getformweWhichWeekTime(df.parse(input), 1);
+        System.out.println("formerOneWeek="+formerOneWeek);
+        Long formerTwoWeek = getformweWhichWeekTime(df.parse(input), 2 );
+        System.out.println("formerTwoWeek="+formerTwoWeek);
+        System.out.println("---------------------------------------------");
+        Long formerOneMonth = getformweWhichMonth(df.parse(input), 1);
+        System.out.println("formerOneMonth="+formerOneMonth);
+        Long formerTwoMonth = getformweWhichMonth(df.parse(input), 2);
+        System.out.println("formerTwoMonth="+formerTwoMonth);
+//        Date date1 = DateUtil.getYMDHMSTime(input);
+//        get(date1);
     }
+
+    public static Long getformweWhichMonth(Date date, int interval) {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        cal.setTime(date); // 获取时间
+        System.out.println(df.format(cal.getTime()));
+        cal.add(Calendar.MONTH, -interval);
+        System.out.println(df.format(cal.getTime()));
+        return cal.getTime().getTime();
+    }
+
+    public static Long getformweWhichWeekTime(Date date, int interval) {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        cal.setTime(date); // 获取时间
+        System.out.println(df.format(cal.getTime()));
+        cal.add(Calendar.WEEK_OF_YEAR, -interval);
+        System.out.println(df.format(cal.getTime()));
+        return cal.getTime().getTime();
+    }
+
 
     public static Long getCurrentOneWeekTime(Date date) {
         Calendar cal = Calendar.getInstance();
@@ -37,6 +70,17 @@ public class DateTest1 {
         System.out.println(df.format(cal.getTime()));
         return cal.getTime().getTime();
     }
+    public static Long getCurrentTwoWeekTime(Date date) {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        cal.setTime(date); // 获取时间
+        System.out.println(df.format(cal.getTime()));
+        cal.add(Calendar.WEEK_OF_YEAR, -2);
+        System.out.println(df.format(cal.getTime()));
+        return cal.getTime().getTime();
+    }
+
+
 
     public static void get(Date createTime) {
 //        List<CallRecordDetail> detailList = null;
