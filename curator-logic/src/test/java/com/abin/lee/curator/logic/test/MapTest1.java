@@ -4,9 +4,7 @@ import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by abin on 2017/11/24 11:27.
@@ -76,4 +74,29 @@ public class MapTest1 {
         String param = "abcdef";
         System.out.println(param.substring(0,1));
     }
+
+
+    @Test
+    public void test3(){
+        Map<String, Integer> demands = new LinkedHashMap<>();
+        demands.put("A", 10);
+        demands.put("B", 20);
+        demands.put("C", 30);
+        demands.put("D", 40);
+        demands.put("E", 50);
+        demands.put("F", 60);
+        System.out.println("demands=" + demands);
+        Map<String, Integer> kill = new LinkedHashMap<>();
+        kill.put("A", 10);
+        kill.put("B", 20);
+        System.out.println("kill=" + kill);
+        for (Iterator<Map.Entry<String, Integer>> iterator = demands.entrySet().iterator(); iterator.hasNext(); ) {
+            Map.Entry<String, Integer> entry = iterator.next();
+            if(kill.containsKey(entry.getKey()))
+                iterator.remove();
+        }
+        System.out.println("demands=" + demands);
+    }
+
+
 }
