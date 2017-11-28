@@ -1,10 +1,14 @@
 package com.abin.lee.curator.logic.test;
 
+import com.abin.lee.curator.logic.test.enums.OrderEnum;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by abin on 2017/11/24 11:27.
@@ -98,5 +102,56 @@ public class MapTest1 {
         System.out.println("demands=" + demands);
     }
 
+    @Test
+    public void test4(){
+        Map<String, Integer> demands = new LinkedHashMap<>();
+        demands.put("A", 10);
+        demands.put("B", 20);
+        demands.put("C", 30);
+        demands.put("D", 40);
+        demands.put("E", 50);
+        demands.put("F", 60);
+        System.out.println("demands=" + demands);
+        Map<String, Integer> result = filterFormer(demands,  8);
+        System.out.println("result=" + result);
+    }
+
+    public Map<String, Integer> filterFormer(Map<String, Integer> demands, Integer num){
+        if(MapUtils.isEmpty(demands))
+            return null;
+        Map<String, Integer> frequencyResultMap = Maps.newLinkedHashMap();
+        if (MapUtils.isNotEmpty(demands)) {
+//            if (demands.size() >= num) {
+                AtomicInteger increase = new AtomicInteger(0);
+                for (Iterator<Map.Entry<String, Integer>> iterator = demands.entrySet().iterator(); iterator.hasNext(); ) {
+                    Map.Entry<String, Integer> entry = iterator.next();
+                    if (increase.get() <= num) {
+                        frequencyResultMap.put(entry.getKey(), entry.getValue());
+                        increase.getAndIncrement();
+                    }
+                }
+//            }
+        }
+        return frequencyResultMap;
+    }
+
+    @Test
+    public void test5(){
+        String result = getOrder(OrderEnum.ONE);
+        System.out.println("result=" + result);
+    }
+
+    public String getOrder(OrderEnum orderEnum){
+        switch(orderEnum){
+            case ONE:
+                return "1";
+            case TWO:
+                return "2";
+            case THREE:
+                return "3";
+            default:
+                return "";
+        }
+    }
 
 }
