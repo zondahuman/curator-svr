@@ -1,8 +1,13 @@
 package com.abin.lee.curator.logic.test;
 
 import com.abin.lee.curator.logic.test.enums.OrderEnum;
+import com.abin.lee.curator.svr.common.DateUtil;
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
@@ -153,5 +158,121 @@ public class MapTest1 {
                 return "";
         }
     }
+
+    @Test
+    public void test6(){
+        List<Detail> detailList = Lists.newArrayList();
+        Detail detail1 = new Detail();
+        detail1.setLonger(101);
+        detail1.setMobile("13300009999");
+        detail1.setStartTime(DateUtil.getYMDHMSTime("2017-10-1 12:00:01"));
+        detailList.add(detail1);
+        Detail detail2 = new Detail();
+        detail2.setLonger(102);
+        detail2.setMobile("13300009991");
+        detail2.setStartTime(DateUtil.getYMDHMSTime("2017-10-5 12:00:01"));
+        detailList.add(detail2);
+        Detail detail3 = new Detail();
+        detail3.setLonger(103);
+        detail3.setMobile("13300009992");
+        detail3.setStartTime(DateUtil.getYMDHMSTime("2017-9-25 12:00:01"));
+        detailList.add(detail3);
+
+        Detail detail4 = new Detail();
+        detail4.setLonger(104);
+        detail4.setMobile("13300009999");
+        detail4.setStartTime(DateUtil.getYMDHMSTime("2017-10-1 12:00:05"));
+        detailList.add(detail4);
+        Detail detail5 = new Detail();
+        detail5.setLonger(105);
+        detail5.setMobile("13300009999");
+        detail5.setStartTime(DateUtil.getYMDHMSTime("2017-10-1 12:00:45"));
+        detailList.add(detail5);
+
+        Map<String, Integer> result = getStatics(detailList);
+        System.out.println("result=" + result);
+        Map<String, Integer> result1 = getLonger(detailList);
+        System.out.println("result1=" + result1);
+
+    }
+
+
+    public Map<String, Integer> getStatics(List<Detail> detailList) {
+        Map<String, Integer> frequencyMap = Maps.newLinkedHashMap();
+        if (CollectionUtils.isNotEmpty(detailList)) {
+            Integer total = null;
+            for (Detail temp : detailList) {
+                String toMobile = temp.getMobile();
+                total = frequencyMap.get(toMobile);
+                if (null != total) {
+                    frequencyMap.put(toMobile, ++total);
+                } else {
+                    frequencyMap.put(toMobile, total == null ? 1 : total);
+                }
+            }
+        }
+        return frequencyMap;
+    }
+
+    public Map<String, Integer> getLonger(List<Detail> detailList) {
+        Map<String, Integer> frequencyMap = Maps.newLinkedHashMap();
+        if (CollectionUtils.isNotEmpty(detailList)) {
+            Integer total = null;
+            for (Detail temp : detailList) {
+                String toMobile = temp.getMobile();
+                Integer duration = temp.getLonger();
+                if (!Strings.isNullOrEmpty(toMobile)) {
+                    total = frequencyMap.get(toMobile);
+                    if (null != total) {
+                        frequencyMap.put(toMobile, (total + duration));
+                    } else {
+                        frequencyMap.put(toMobile, duration);
+                    }
+                }
+            }
+        }
+        return frequencyMap;
+    }
+    @Test
+    public void test7(){
+        Map<String, Integer> demands = new LinkedHashMap<>();
+        demands.put("A", 10);
+        demands.put("B", 20);
+        demands.put("C", 30);
+        demands.put("D", 40);
+        demands.put("E", 50);
+        demands.put("F", 60);
+        System.out.println("demands=" + demands);
+        String result = getSpecialItem(demands,  2);
+        System.out.println("result=" + result);
+    }
+
+    public String getSpecialItem(Map<String, Integer> frequencyResultMap, Integer num){
+        if (MapUtils.isNotEmpty(frequencyResultMap)) {
+            if (frequencyResultMap.size() >= num) {
+                AtomicInteger increase = new AtomicInteger(1);
+                for (Iterator<Map.Entry<String, Integer>> iterator = frequencyResultMap.entrySet().iterator(); iterator.hasNext(); ) {
+                    Map.Entry<String, Integer> entry = iterator.next();
+                    if (increase.get() == num) {
+                        return entry.getKey();
+                    } else {
+                        increase.getAndIncrement();
+                    }
+                }
+            }
+        }
+        return StringUtils.EMPTY;
+    }
+
+}
+
+@Getter
+@Setter
+class Detail {
+    private String mobile;
+    private Integer longer;
+    private Date startTime;
+
+
 
 }
