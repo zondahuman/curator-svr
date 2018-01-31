@@ -14,12 +14,13 @@ import java.util.Arrays;
 
 public class NodeCacheExample {
     private static final String PATH = "/example/nodecache";
+    private static final String ADDRESS = "172.16.2.146:2181";
 
     public static void main(String[] args) throws Exception {
         CuratorFramework client = null;
         NodeCache cache = null;
         try {
-            client = CuratorFrameworkFactory.newClient("127.0.0.1:2181", new ExponentialBackoffRetry(1000, 3));
+            client = CuratorFrameworkFactory.newClient(ADDRESS, new ExponentialBackoffRetry(1000, 3));
             client.start();
 
             cache = new NodeCache(client, PATH);

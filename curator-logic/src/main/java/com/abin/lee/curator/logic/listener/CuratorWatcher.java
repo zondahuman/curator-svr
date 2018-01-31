@@ -1,4 +1,4 @@
-package com.abin.lee.curator.main.listener;
+package com.abin.lee.curator.logic.listener;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -23,6 +23,7 @@ public class CuratorWatcher {
     private static final String zkPath = "/curator/zknode1";
     private static final String zkFatherPath = "/curator";
     private static ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+    private static final String ADDRESS = "172.16.2.146:2181";
 
     public static void main(String[] args) throws Exception {
         init();
@@ -34,7 +35,7 @@ public class CuratorWatcher {
     }
     public static void init() throws Exception {
         curatorFramework = CuratorFrameworkFactory.builder()
-                .connectString("172.16.2.132:2181")
+                .connectString(ADDRESS)
                 .sessionTimeoutMs(20000)
                 .connectionTimeoutMs(30000)
                 .retryPolicy(new ExponentialBackoffRetry(1000, 3))

@@ -1,4 +1,4 @@
-package com.abin.lee.curator.logic.test;
+package com.abin.lee.curator.test.common;
 
 import com.google.common.collect.Maps;
 import org.apache.commons.collections.MapUtils;

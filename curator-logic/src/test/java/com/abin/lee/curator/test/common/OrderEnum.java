@@ -1,4 +1,4 @@
-package com.abin.lee.curator.logic.test.enums;
+package com.abin.lee.curator.test.common;
 
 import org.apache.commons.lang3.StringUtils;
 

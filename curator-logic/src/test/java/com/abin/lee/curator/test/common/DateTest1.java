@@ -1,4 +1,4 @@
-package com.abin.lee.curator.logic.test;
+package com.abin.lee.curator.test.common;
 
 import com.abin.lee.curator.svr.common.DateUtil;
 import com.abin.lee.curator.svr.common.DateUtils;

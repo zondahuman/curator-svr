@@ -1,6 +1,5 @@
-package com.abin.lee.curator.logic.test;
+package com.abin.lee.curator.test.common;
 
-import com.abin.lee.curator.logic.test.enums.OrderEnum;
 import com.abin.lee.curator.svr.common.DateUtil;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
