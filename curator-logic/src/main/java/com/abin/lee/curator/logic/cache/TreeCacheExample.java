@@ -23,7 +23,7 @@ public class TreeCacheExample {
         CuratorFramework client = null;
         TreeCache cache = null;
         try {
-            client = CuratorFrameworkFactory.newClient("127.0.0.1:2181", new ExponentialBackoffRetry(1000, 3));
+            client = CuratorFrameworkFactory.newClient("172.16.2.146:2181", new ExponentialBackoffRetry(1000, 3));
             client.start();
 
             cache = new TreeCache(client, PATH);
